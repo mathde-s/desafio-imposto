@@ -14,6 +14,10 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(NullArgumentionException.class)
     public ResponseEntity<String> handlerNullArgumentionException(NullArgumentionException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("o argumento foi passada como nulo ou inválido" + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handlreResourceNotFoundException(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

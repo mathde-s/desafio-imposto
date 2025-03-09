@@ -24,7 +24,13 @@ public class TaxService implements ITax {
     }
 
     public List<TaxResponseDTO> getAllTaxs(){
-        return null;
+        List<TaxModel> existedTaxs = taxRepository.findAll();
+        if(existedTaxs.isEmpty())
+            throw new NullArgumentionException("nenhum imposto está cadastrado");
+
+        return existedTaxs.stream()
+                .map(TaxMapper :: toResppnse)
+                .collect(Collectors.toList());
     }
 
     public TaxResponseDTO getTaxById(){

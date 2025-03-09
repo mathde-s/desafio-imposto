@@ -15,7 +15,12 @@ public class TaxService implements ITax {
     private TaxRepository taxRepository;
 
     public TaxResponseDTO registerTax(TaxRequestDTO taxRequestDTO){
-        return null;
+        if(taxRepository.existsByName(taxRequestDTO.getName())){
+            throw new ExistingResourceException("imposto já existe");
+        }
+        TaxModel tax = TaxMapper.toEnity(taxRequestDTO);
+        taxRepository.save(tax);
+        return TaxMapper.toResppnse(tax);
     }
 
     public List<TaxResponseDTO> getAllTaxs(){

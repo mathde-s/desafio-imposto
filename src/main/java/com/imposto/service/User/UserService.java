@@ -9,7 +9,20 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUser{
 
     public UserResponseDTO registerUser(UserRequestDTO userRequestDTO){
-        return new UserResponseDTO();
+        if (userRepository.existsByUsername(userRequestDTO.getUsername()))
+            throw new ExistingResourceException("username ja cadastrado");
+
+        UserModel user = new UserModel();
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
+        Set<RoleModel> roles = userRequestDTO.getRoles().stream()
+                .map(r -> new RoleModel(r.name())).collect(Collectors.toSet());
+        roleRepository.saveAll(roles);
+
+        user.setRoles(roles);
+
+        userRepository.save(user);
+        return UserMapper.toResponse(user);
     }
 
     public String login(LoginDTO loginDTO) {

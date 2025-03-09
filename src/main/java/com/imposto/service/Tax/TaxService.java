@@ -33,8 +33,10 @@ public class TaxService implements ITax {
                 .collect(Collectors.toList());
     }
 
-    public TaxResponseDTO getTaxById(){
-        return null;
+    public TaxResponseDTO getTaxById(Long id){
+        TaxModel tax = taxRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Imposto não existe"));
+        return TaxMapper.toResppnse(tax);
     }
 
     public void deleteTaxById() {

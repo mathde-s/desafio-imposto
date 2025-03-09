@@ -8,6 +8,6 @@ import java.util.List;
 public interface ITax {
     TaxResponseDTO registerTax(TaxRequestDTO taxRequestDTO);
     List<TaxResponseDTO> getAllTaxs();
-    TaxResponseDTO getTaxById();
-    void deleteTaxById();
+    TaxResponseDTO getTaxById(Long id);
+    void deleteTaxById(Long id);
 }

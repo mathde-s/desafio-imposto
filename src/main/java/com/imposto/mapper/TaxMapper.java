@@ -5,7 +5,7 @@ import com.imposto.dto.TaxResponseDTO;
 import com.imposto.model.TaxModel;
 
 public class TaxMapper {
-    public static TaxModel toEnity(TaxRequestDTO taxRequestDTO){
+    public static TaxModel toEntity(TaxRequestDTO taxRequestDTO){
         return new TaxModel(taxRequestDTO.getName(), taxRequestDTO.getDescription(), taxRequestDTO.getAliquota());
     }
     public static TaxResponseDTO toResppnse(TaxModel taxModel){

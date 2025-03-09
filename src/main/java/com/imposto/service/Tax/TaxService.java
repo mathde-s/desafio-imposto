@@ -2,11 +2,17 @@ package com.imposto.service.Tax;
 
 import com.imposto.dto.TaxRequestDTO;
 import com.imposto.dto.TaxResponseDTO;
+import com.imposto.exceptions.ExistingResourceException;
+import com.imposto.exceptions.NullArgumentionException;
+import com.imposto.exceptions.ResourceNotFoundException;
+import com.imposto.mapper.TaxMapper;
+import com.imposto.model.TaxModel;
 import com.imposto.repository.TaxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaxService implements ITax {
@@ -39,6 +45,9 @@ public class TaxService implements ITax {
         return TaxMapper.toResppnse(tax);
     }
 
-    public void deleteTaxById() {
+    public void deleteTaxById(Long id) {
+        taxRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Tax does not exist."));
+        taxRepository.deleteById(id);
     }
 }

@@ -1,6 +1,5 @@
 package com.imposto.model;
 
-import com.imposto.dto.UserRequestDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 

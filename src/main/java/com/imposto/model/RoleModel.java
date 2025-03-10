@@ -11,5 +11,7 @@ public class RoleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
+    public RoleModel(String name) {
+        this.name = name;
+    }
 }

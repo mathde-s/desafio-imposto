@@ -30,10 +30,13 @@ public class UserService implements IUser{
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     public UserResponseDTO registerUser(UserRequestDTO userRequestDTO){
         if (userRepository.existsByUsername(userRequestDTO.getUsername()))

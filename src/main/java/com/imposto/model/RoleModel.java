@@ -14,4 +14,6 @@ public class RoleModel {
     public RoleModel(String name) {
         this.name = name;
     }
+    public RoleModel(){
+    }
 }

@@ -54,7 +54,14 @@ public class TaxController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaxResponseDTO> getTaxById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(taxService.getTaxById(id));
+        try {
+            TaxResponseDTO response = taxService.getTaxById(id);
+            log.info("get tax with id:{} successfully",id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            log.error("error to get tax with id: {}",id,e);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @DeleteMapping("/{id}")

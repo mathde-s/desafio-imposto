@@ -29,7 +29,14 @@ public class TaxController {
 
     @GetMapping
     public ResponseEntity<List<TaxResponseDTO>> getAllTaxes(){
-        return ResponseEntity.status(HttpStatus.OK).body(taxService.getAllTaxs());
+        try {
+            List<TaxResponseDTO> response = taxService.getAllTaxs();
+            log.info("taxes listed successfully. quantity:{}", response.size() );
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            log.error("error to list taxes", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")

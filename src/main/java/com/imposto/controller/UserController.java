@@ -5,6 +5,8 @@ import com.imposto.dto.LoginDTO;
 import com.imposto.dto.UserRequestDTO;
 import com.imposto.dto.UserResponseDTO;
 import com.imposto.service.User.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private UserService userService;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO){
@@ -34,10 +37,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
-        String token = userService.login(loginDTO);
-        AuthResponseDTO authResponseDTO = new AuthResponseDTO();
-        authResponseDTO.setAccessToken(token);
-        return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
+        try {
+            String token = userService.login(loginDTO);
+            AuthResponseDTO authResponseDTO = new AuthResponseDTO();
+            authResponseDTO.setAccessToken(token);
+            log.info("successfully logged in with username:{} ", loginDTO.getUsername());
+            return new ResponseEntity<>(authResponseDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("error to login with username:{} ", loginDTO.getUsername(), e);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

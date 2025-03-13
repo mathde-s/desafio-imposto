@@ -1,6 +1,6 @@
 package com.imposto.service.TaxCalculator;
 
-import com.imposto.dto.TaxCalculatorDTO;
+import com.imposto.dto.TaxCalculatorRequestDTO;
 import com.imposto.dto.TaxCalculatorResponseDTO;
 import com.imposto.exceptions.ResourceNotFoundException;
 import com.imposto.model.TaxModel;
@@ -13,7 +13,7 @@ public class TaxCalculatorService implements ITaxCalculator{
     @Autowired
     private TaxRepository taxRepository;
 
-    public TaxCalculatorResponseDTO calculateTax(TaxCalculatorDTO calculatorDTO) {
+    public TaxCalculatorResponseDTO calculateTax(TaxCalculatorRequestDTO calculatorDTO) {
         TaxModel tax = taxRepository.findById(calculatorDTO.getTaxId())
                 .orElseThrow(() -> new ResourceNotFoundException("imposto não encontrado"));
         double TaxValue = (calculatorDTO.getBaseValue() * (tax.getAliquota()) / 100);

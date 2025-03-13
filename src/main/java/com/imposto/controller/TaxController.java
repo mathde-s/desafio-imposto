@@ -42,7 +42,14 @@ public class TaxController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TaxResponseDTO> createNewTax(@RequestBody @Valid TaxRequestDTO requestDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(taxService.registerTax(requestDTO));
+        try {
+            TaxResponseDTO response = taxService.registerTax(requestDTO);
+            log.info("tax created successfully with id:{} and name:{}", response.getId(), response.getName());
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            log.error("error to create tax with name:{} ",requestDTO.getName(), e);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @GetMapping("/{id}")

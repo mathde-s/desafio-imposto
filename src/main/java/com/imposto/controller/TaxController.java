@@ -41,7 +41,7 @@ public class TaxController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<TaxResponseDTO> createNewTax(@RequestBody @Valid TaxRequestDTO requestDTO){
+    public ResponseEntity<TaxResponseDTO> createTax(@RequestBody @Valid TaxRequestDTO requestDTO){
         try {
             TaxResponseDTO response = taxService.registerTax(requestDTO);
             log.info("tax created successfully with id:{} and name:{}", response.getId(), response.getName());

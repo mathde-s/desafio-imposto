@@ -23,7 +23,14 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerUser(userRequestDTO));
+        try{
+            UserResponseDTO response = userService.registerUser(userRequestDTO);
+            log.info("user created successfully with username: {}", response.getUsername());
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            log.error("Error creating user with username:{} ", userRequestDTO.getUsername(), e);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @PostMapping("/login")

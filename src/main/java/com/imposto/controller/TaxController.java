@@ -18,6 +18,8 @@ import java.util.List;
 @Validated
 public class TaxController {
 
+    private static final Logger log = LoggerFactory.getLogger(TaxController.class);
+
     private final TaxService taxService;
 
     @Autowired

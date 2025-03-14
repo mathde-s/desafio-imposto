@@ -38,10 +38,9 @@ public class SecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/users/register").permitAll();
-                    authorize.requestMatchers("/users/login").permitAll();
+                    authorize.requestMatchers("/users/register", "/users/login").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/taxes").authenticated();
-                    authorize.requestMatchers(HttpMethod.POST, "/taxes", "/calculate").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST, "/taxes", "/taxes/calculate").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.DELETE, "/taxes/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.GET, "/taxes/**").permitAll();
                     authorize.anyRequest().authenticated();

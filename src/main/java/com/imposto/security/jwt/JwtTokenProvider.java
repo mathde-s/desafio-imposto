@@ -13,8 +13,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import static io.jsonwebtoken.Jwts.*;
-
 @Component
 public class JwtTokenProvider {
     private final String jwtSecret = "8ac4260dc5fb26237888685451665f52f912e5b9473b221fda54d9ebf4702a3f61175854817c3c5b24da0d663893adb206c14db7f793cc38860f4509cd519129";
@@ -44,7 +42,6 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    // extract username from JWT token
     public String getUsername(String token){
 
         return Jwts.parser()
@@ -55,7 +52,6 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    // validate JWT token
     public boolean validateToken(String token){
         Jwts.parser()
                 .verifyWith((SecretKey) key())

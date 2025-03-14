@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class TaxService implements ITax {
 
+    private final TaxRepository taxRepository;
+
     @Autowired
-    private TaxRepository taxRepository;
+    public TaxService(TaxRepository taxRepository){
+        this.taxRepository = taxRepository;
+    }
 
     public TaxResponseDTO registerTax(TaxRequestDTO taxRequestDTO){
         if(taxRepository.existsByName(taxRequestDTO.getName())){

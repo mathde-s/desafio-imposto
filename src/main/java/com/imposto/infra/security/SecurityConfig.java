@@ -1,7 +1,7 @@
-package com.imposto.security;
+package com.imposto.infra.security;
 
-import com.imposto.security.jwt.JwtAuthenticationEntryPoint;
-import com.imposto.security.jwt.JwtAuthenticationFilter;
+import com.imposto.infra.security.jwt.JwtAuthenticationEntryPoint;
+import com.imposto.infra.security.jwt.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

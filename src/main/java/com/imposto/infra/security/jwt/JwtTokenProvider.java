@@ -1,4 +1,4 @@
-package com.imposto.security.jwt;
+package com.imposto.infra.security.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

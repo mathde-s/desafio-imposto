@@ -29,20 +29,20 @@ public class TaxService implements ITax {
         }
         TaxModel tax = TaxMapper.toEntity(taxRequestDTO);
         taxRepository.save(tax);
-        return TaxMapper.toResppnse(tax);
+        return TaxMapper.toResponse(tax);
     }
 
     public List<TaxResponseDTO> getAllTaxs(){
         return taxRepository.findAll()
                 .stream()
-                .map(TaxMapper :: toResppnse)
+                .map(TaxMapper ::toResponse)
                 .collect(Collectors.toList());
     }
 
     public TaxResponseDTO getTaxById(Long id){
         TaxModel tax = taxRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Imposto não existe"));
-        return TaxMapper.toResppnse(tax);
+        return TaxMapper.toResponse(tax);
     }
 
     public void deleteTaxById(Long id) {

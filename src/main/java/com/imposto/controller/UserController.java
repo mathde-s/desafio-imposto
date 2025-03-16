@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @Validated
 public class UserController {
-    @Autowired
-    private UserService userService;
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 

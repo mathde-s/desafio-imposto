@@ -66,6 +66,7 @@ public class TaxController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTaxById(@PathVariable Long id){
         try {

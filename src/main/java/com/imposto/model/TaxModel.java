@@ -24,4 +24,8 @@ public class TaxModel {
         this.description = description;
         this.aliquota = aliquota;
     }
+
+    public TaxModel(String name) {
+        this.name = name;
+    }
 }

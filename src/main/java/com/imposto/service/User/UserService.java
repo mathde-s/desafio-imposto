@@ -28,14 +28,16 @@ public class UserService implements IUser{
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userMapper = userMapper;
     }
 
     public UserResponseDTO registerUser(UserRequestDTO userRequestDTO){
@@ -52,7 +54,7 @@ public class UserService implements IUser{
         user.setRoles(roles);
 
         userRepository.save(user);
-        return UserMapper.toResponse(user);
+        return userMapper.toResponse(user);
     }
 
     public String login(LoginDTO loginDTO) {

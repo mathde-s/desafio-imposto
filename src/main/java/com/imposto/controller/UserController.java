@@ -23,6 +23,12 @@ public class UserController {
     @Autowired
     private UserService userService;
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO){

@@ -43,6 +43,7 @@ public class SecurityConfig {
                     authorize.requestMatchers(HttpMethod.POST, "/taxes", "/taxes/calculate").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.DELETE, "/taxes/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.GET, "/taxes/**").permitAll();
+                    authorize.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 

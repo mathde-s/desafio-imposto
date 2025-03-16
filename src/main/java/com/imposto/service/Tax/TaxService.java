@@ -17,32 +17,34 @@ import java.util.stream.Collectors;
 public class TaxService implements ITax {
 
     private final TaxRepository taxRepository;
+    private final TaxMapper taxMapper;
 
     @Autowired
-    public TaxService(TaxRepository taxRepository){
+    public TaxService(TaxRepository taxRepository, TaxMapper taxMapper){
         this.taxRepository = taxRepository;
+        this.taxMapper = taxMapper;
     }
 
     public TaxResponseDTO registerTax(TaxRequestDTO taxRequestDTO){
         if(taxRepository.existsByName(taxRequestDTO.getName())){
             throw new ExistingResourceException("imposto já existe");
         }
-        TaxModel tax = TaxMapper.toEntity(taxRequestDTO);
+        TaxModel tax = taxMapper.toEntity(taxRequestDTO);
         taxRepository.save(tax);
-        return TaxMapper.toResponse(tax);
+        return taxMapper.toResponse(tax);
     }
 
     public List<TaxResponseDTO> getAllTaxs(){
         return taxRepository.findAll()
                 .stream()
-                .map(TaxMapper ::toResponse)
+                .map(taxMapper ::toResponse)
                 .collect(Collectors.toList());
     }
 
     public TaxResponseDTO getTaxById(Long id){
         TaxModel tax = taxRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Imposto não existe"));
-        return TaxMapper.toResponse(tax);
+        return taxMapper.toResponse(tax);
     }
 
     public void deleteTaxById(Long id) {

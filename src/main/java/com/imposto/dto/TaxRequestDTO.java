@@ -16,4 +16,7 @@ public class TaxRequestDTO {
     @Positive(message = "a aliquota deve ser positiva")
     private double aliquota;
 
+    public TaxRequestDTO(String name){
+        this.name = name;
+    }
 }

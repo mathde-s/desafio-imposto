@@ -9,7 +9,7 @@ import com.imposto.model.RoleModel;
 import com.imposto.model.UserModel;
 import com.imposto.repository.RoleRepository;
 import com.imposto.repository.UserRepository;
-import com.imposto.security.jwt.JwtTokenProvider;
+import com.imposto.infra.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

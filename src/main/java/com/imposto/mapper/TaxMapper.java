@@ -8,7 +8,7 @@ public class TaxMapper {
     public static TaxModel toEntity(TaxRequestDTO taxRequestDTO){
         return new TaxModel(taxRequestDTO.getName(), taxRequestDTO.getDescription(), taxRequestDTO.getAliquota());
     }
-    public static TaxResponseDTO toResppnse(TaxModel taxModel){
+    public static TaxResponseDTO toResponse(TaxModel taxModel){
         return new TaxResponseDTO(taxModel.getId(), taxModel.getName(), taxModel.getDescription(), taxModel.getAliquota());
     }
 }

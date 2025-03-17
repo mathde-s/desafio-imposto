@@ -49,7 +49,7 @@ public class TaxService implements ITax {
 
     public void deleteTaxById(Long id) {
         taxRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Tax does not exist."));
+                .orElseThrow(() -> new ResourceNotFoundException("Imposto não existe"));
         taxRepository.deleteById(id);
     }
 }

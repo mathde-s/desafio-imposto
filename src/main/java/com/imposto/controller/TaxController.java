@@ -72,7 +72,7 @@ public class TaxController {
         try {
             taxService.deleteTaxById(id);
             log.info("tax with id:{} deleted successfully ",id);
-            return ResponseEntity.status(HttpStatus.OK).body("imposto com o id:" + id + " foi deletado");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("imposto com o id:" + id + " foi deletado");
         } catch (Exception e) {
             log.error("error to delete tax with id:{}",id,e);
         }

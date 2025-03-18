@@ -3,6 +3,9 @@ package com.imposto.controller;
 import com.imposto.dto.TaxRequestDTO;
 import com.imposto.dto.TaxResponseDTO;
 import com.imposto.service.Tax.TaxService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +32,11 @@ public class TaxController {
         this.taxService = taxService;
     }
 
+    @Operation(summary = "List all taxes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
     @GetMapping
     public ResponseEntity<List<TaxResponseDTO>> getAllTaxes(){
         try {
@@ -41,6 +49,11 @@ public class TaxController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @Operation(summary = "Create tax")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201"),
+            @ApiResponse(responseCode = "400")
+    })
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TaxResponseDTO> createTax(@RequestBody @Valid TaxRequestDTO requestDTO){
@@ -54,6 +67,11 @@ public class TaxController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @Operation(summary = "Return tax By id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<TaxResponseDTO> getTaxById(@PathVariable Long id){
         try {
@@ -66,6 +84,11 @@ public class TaxController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @Operation(summary = "Delete tax")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "400")
+    })
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTaxById(@PathVariable Long id){

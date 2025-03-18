@@ -1,0 +1,37 @@
+name: Spring CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test:
+    name: Build, Test and Run with Docker Compose
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Build e subir os serviços do Docker Compose
+      - name: Build and Start Services
+        run: |
+          docker-compose up --build -d
+
+      # Step 3: Executar testes no container do Spring App
+      - name: Run Tests
+        run: |
+          docker exec spring-app mvn test
+
+      # Step 4: Parar e remover os serviços
+      - name: Stop and Clean Up
+        if: always()
+        run: |
+          docker-compose down

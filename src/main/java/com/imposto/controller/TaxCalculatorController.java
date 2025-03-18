@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +28,11 @@ public class TaxCalculatorController {
         this.taxCalculatorService = taxCalculatorService;
     }
 
-
+    @Operation(summary = "calcule tax with base value")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TaxCalculatorResponseDTO> calculateTax (TaxCalculatorRequestDTO taxCalculatorRequestDTO){

@@ -1,7 +1,7 @@
-package com.imposto.security;
+package com.imposto.infra.security;
 
-import com.imposto.security.jwt.JwtAuthenticationEntryPoint;
-import com.imposto.security.jwt.JwtAuthenticationFilter;
+import com.imposto.infra.security.jwt.JwtAuthenticationEntryPoint;
+import com.imposto.infra.security.jwt.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -38,12 +38,12 @@ public class SecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/users/register").permitAll();
-                    authorize.requestMatchers("/users/login").permitAll();
+                    authorize.requestMatchers("/users/register", "/users/login").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/taxes").authenticated();
-                    authorize.requestMatchers(HttpMethod.POST, "/taxes", "/calculate").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST, "/taxes", "/taxes/calculate").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.DELETE, "/taxes/**").hasRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.GET, "/taxes/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET, "/taxes/**").authenticated();
+                    authorize.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
 

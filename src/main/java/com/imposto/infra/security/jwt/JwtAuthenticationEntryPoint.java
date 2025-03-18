@@ -1,4 +1,4 @@
-package com.imposto.security.jwt;
+package com.imposto.infra.security.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

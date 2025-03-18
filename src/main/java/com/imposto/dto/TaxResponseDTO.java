@@ -1,8 +1,10 @@
 package com.imposto.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class TaxResponseDTO {
 
     private Long id;
@@ -15,5 +17,9 @@ public class TaxResponseDTO {
         this.name = name;
         this.description = description;
         this.aliquota = aliquota;
+    }
+
+    public TaxResponseDTO(String name){
+        this.name = name;
     }
 }

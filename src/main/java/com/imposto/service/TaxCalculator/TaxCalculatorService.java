@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TaxCalculatorService implements ITaxCalculator{
+    private final TaxRepository taxRepository;
+
     @Autowired
-    private TaxRepository taxRepository;
+    public TaxCalculatorService(TaxRepository taxRepository){
+        this.taxRepository = taxRepository;
+    }
 
     public TaxCalculatorResponseDTO calculateTax(TaxCalculatorRequestDTO calculatorDTO) {
         TaxModel tax = taxRepository.findById(calculatorDTO.getTaxId())

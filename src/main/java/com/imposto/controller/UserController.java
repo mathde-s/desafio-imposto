@@ -5,6 +5,9 @@ import com.imposto.dto.LoginDTO;
 import com.imposto.dto.UserRequestDTO;
 import com.imposto.dto.UserResponseDTO;
 import com.imposto.service.User.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +23,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @Validated
 public class UserController {
-    @Autowired
-    private UserService userService;
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final UserService userService;
 
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Operation(summary = "Register user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201"),
+            @ApiResponse(responseCode = "400")
+    })
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRequestDTO userRequestDTO){
         try{
@@ -36,6 +48,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+    @Operation(summary = "login with credentials")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400")
+    })
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO){
         try {

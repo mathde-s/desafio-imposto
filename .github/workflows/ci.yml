@@ -23,7 +23,7 @@ jobs:
       # Step 2: Build e subir os serviços do Docker Compose
       - name: Build and Start Services
         run: |
-          docker-compose up --build -d
+          docker compose up --build -d
 
       # Step 3: Executar testes no container do Spring App
       - name: Run Tests
@@ -34,4 +34,4 @@ jobs:
       - name: Stop and Clean Up
         if: always()
         run: |
-          docker-compose down
+          docker compose down
